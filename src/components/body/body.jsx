@@ -26,6 +26,22 @@ const Body = () => {
     setPassword(e?.target?.value);
   };
 
+  // setting data in local storage
+  const data = () => {
+    const user = {
+      username: name,
+      useremail: email,
+      usernumber: phoneNumber,
+      userpassword: password,
+    };
+    localStorage.setItem("userData", JSON.stringify(user));
+  };
+
+  // getting data from local storage
+  const getUserData = localStorage.getItem("userData");
+  const parsedData = JSON.parse(getUserData);
+  // console.log(parsedData);
+
   //   main app body
 
   return (
@@ -36,7 +52,7 @@ const Body = () => {
     >
       <div className="container pt-5 d-flex justify-content-center align-items-center">
         <div className="row justify-content-center">
-            {/* fb-initiative */}
+          {/* fb-initiative */}
           <div className="col-md-5 col-12 mt-5 pt-md-5 text-md-start text-center">
             <h1 className="fw-bold display-4 text-primary">facebook</h1>
             <p className="fs-3 fw-medium">
@@ -83,7 +99,10 @@ const Body = () => {
                 placeholder="Password"
                 onChange={(e) => setUserPassword(e)}
               />
-              <button className="bg-primary text-white fw-bold rounded-3 border-0 w-100 mt-3 p-3">
+              <button
+                className="bg-primary text-white fw-bold rounded-3 border-0 w-100 mt-3 p-3"
+                onClick={data}
+              >
                 Log In
               </button>
               <p className="text-primary text-center mt-2 mb-3 font-sans-serif">
@@ -105,22 +124,23 @@ const Body = () => {
       </div>
       {/* list to display user data */}
       <div className="p-3">
+        <h4 className="text-decoration-underline ps-3">User Data Here:</h4>
         <ul style={{ listStyleType: "circle" }}>
           <li>
             <b>Username: </b>
-            <span className="fw-medium">{name}</span>
+            <span className="fw-medium">{parsedData?.username}</span>
           </li>
           <li>
             <b>Useremail: </b>
-            <span className="fw-medium">{email}</span>
+            <span className="fw-medium">{parsedData?.useremail}</span>
           </li>
           <li>
             <b>Userphonenumber: </b>
-            <span className="fw-medium">{phoneNumber}</span>
+            <span className="fw-medium">{parsedData?.usernumber}</span>
           </li>
           <li>
             <b>Userpassword: </b>
-            <span className="fw-medium">{password}</span>
+            <span className="fw-medium">{parsedData?.userpassword}</span>
           </li>
         </ul>
       </div>
